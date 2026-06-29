@@ -1,2 +1,2 @@
-# VandalCheatsz
+# Vandal
 cheats
